@@ -5,10 +5,12 @@ class SpaceTag < Formula
   sha256 "eea7764a6c55784fb06489ca2f32c1e1af7790284572f626be1c082ea519347e"
   license "MIT"
 
+  # yabai and sketchybar live in third-party taps, which brew refuses to resolve
+  # as dependencies without an explicit `brew trust`. install.sh already installs
+  # both from their pinned official taps, so declaring them here only buys users
+  # a trust wall.
   depends_on "jq"
   depends_on :macos
-  depends_on "FelixKratz/formulae/sketchybar"
-  depends_on "koekeishiya/formulae/yabai"
 
   def install
     # bin/space-tag resolves its own symlink back to here to find ../VERSION and
@@ -19,7 +21,8 @@ class SpaceTag < Formula
   def caveats
     <<~EOS
       Homebrew installs the files; it cannot symlink into ~/.config or touch your
-      shell rc. Finish setup by running the installer from the stable opt path:
+      shell rc. Finish setup by running the installer from the stable opt path —
+      it also installs yabai and sketchybar from their official taps:
 
         "#{opt_prefix}/install.sh"
 
