@@ -1,8 +1,10 @@
 class SpaceTag < Formula
   desc "Tag macOS spaces from your git project (yabai + sketchybar)"
   homepage "https://github.com/notTag/Space-Tag-CLI"
-  url "https://github.com/notTag/Space-Tag-CLI/archive/refs/tags/v0.4.0.tar.gz"
-  sha256 "eea7764a6c55784fb06489ca2f32c1e1af7790284572f626be1c082ea519347e"
+  # The release asset, not the source archive: only it carries the prebuilt
+  # Swift helpers (rename-overlay, display-probe), so users never need Xcode.
+  url "https://github.com/notTag/Space-Tag-CLI/releases/download/v0.5.0/space-tag-cli-0.5.0.tar.gz"
+  sha256 "71a75ff8cd0811d31809e865abb8f480d5ad99842bb40d541e3f05a177037b55"
   license "MIT"
 
   # yabai and sketchybar live in third-party taps, which brew refuses to resolve
@@ -15,7 +17,7 @@ class SpaceTag < Formula
   def install
     # bin/space-tag resolves its own symlink back to here to find ../VERSION and
     # ../uninstall.sh, so the repo layout has to survive intact under the prefix.
-    prefix.install "bin", "shell", "sketchybar", "yabai", "VERSION", "install.sh", "uninstall.sh"
+    prefix.install "bin", "shell", "sketchybar", "yabai", "scripts", "VERSION", "install.sh", "uninstall.sh"
   end
 
   def caveats
